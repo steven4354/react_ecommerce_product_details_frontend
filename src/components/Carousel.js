@@ -4,6 +4,26 @@ import Slider from "react-slick";
 class Carousel extends Component {
   constructor() {
     super();
+    this.state = {
+      groups: []
+    };
+  }
+
+  componentDidMount() {
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url =
+      "https://www.westelm.com/services/catalog/v4/category/shop/new/all-new/index.json"; // site that doesn’t send Access-Control-*
+    fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
+      .then(response => response.json())
+      .then(contents => {
+        this.setState({
+          groups: contents.groups
+        });
+        console.log(contents);
+      })
+      .catch(() =>
+        console.log("Can’t access " + url + " response. Blocked by browser?")
+      );
   }
 
   render() {
