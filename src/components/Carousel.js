@@ -5,7 +5,8 @@ class Carousel extends Component {
   constructor() {
     super();
     this.state = {
-      groups: []
+      groups: [],
+      fetched: false
     };
   }
 
@@ -17,7 +18,8 @@ class Carousel extends Component {
       .then(response => response.json())
       .then(contents => {
         this.setState({
-          groups: contents.groups
+          groups: contents.groups,
+          fetched: true
         });
         console.log(contents);
       })
@@ -28,37 +30,31 @@ class Carousel extends Component {
 
   render() {
     let settings = {
-      dots: true,
-      infinite: true,
+      infinite: false,
       speed: 500,
+      arrows: false,
       slidesToShow: 3,
       slidesToScroll: 1,
-      arrows: true
+      variableWidth: true
     };
 
+    console.log(this.state.groups);
+
     return (
-      <div>
+      <div style={{marginTop: "10px"}}>
         <Slider {...settings}>
-          <div>
-            <h3>1</h3>
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
+          {!this.state.fetched ? (
+            <div>Loading</div>
+          ) : (
+            this.state.groups[0].images.map(obj => {
+              return (
+                <div width="100px" style={{textAlign: "center"}}>
+                  <img height="100px" width="100px" src={obj.href} />
+                </div>
+              );
+            })
+          )}
         </Slider>
-        <nextArrow style={{color: "black"}} />
       </div>
     );
   }

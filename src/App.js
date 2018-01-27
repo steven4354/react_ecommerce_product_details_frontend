@@ -5,6 +5,7 @@ import "./App.css";
 //custom components
 import Carousel from "./components/Carousel";
 import MainImage from "./components/MainImage";
+import Details from "./components/Details";
 
 class App extends Component {
   render() {
@@ -19,9 +20,12 @@ class App extends Component {
         </p>
         <div className="container">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-5 col-md-offset-1">
               <MainImage />
-              <Carousel style={{marginTop: "20px"}} />
+              <Carousel />
+            </div>
+            <div className="col-md-4 col-md-offset-1">
+              <Details />
             </div>
           </div>
         </div>
