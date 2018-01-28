@@ -4,30 +4,8 @@ import React, {Component} from "react";
 import "./ModalCarousel.css";
 
 class ModalCarousel extends Component {
-  constructor() {
+  constructor(props) {
     super();
-    this.state = {
-      groups: [],
-      fetched: false
-    };
-  }
-
-  componentDidMount() {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const url =
-      "https://www.westelm.com/services/catalog/v4/category/shop/new/all-new/index.json"; // site that doesn’t send Access-Control-*
-    fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
-      .then(response => response.json())
-      .then(contents => {
-        this.setState({
-          groups: contents.groups,
-          fetched: true
-        });
-        console.log(contents);
-      })
-      .catch(() =>
-        console.log("Can’t access " + url + " response. Blocked by browser?")
-      );
   }
 
   switchRight() {}
@@ -43,15 +21,18 @@ class ModalCarousel extends Component {
       centerMode: true
     };
 
-    if (this.state.fetched) {
-      console.log("modal image =>", this.state.groups[0].images.href);
+    if (this.props.fetched) {
+      console.log("modal image =>", this.props.groups[0].images.href);
     }
 
     return (
       <div style={{}}>
-        {this.state.fetched ? (
+        {this.props.fetched ? (
           <div className="row">
-            <div className="col-md-2">
+            <div
+              className="col-md-2"
+              style={{textAlign: "left", marginTop: "300px"}}
+            >
               <button id="fadeshow1">{"<"}</button>
             </div>
             <div className="col-md-8">
@@ -60,12 +41,15 @@ class ModalCarousel extends Component {
                   display: "block",
                   marginLeft: "auto",
                   marginRight: "auto",
-                  marginTop: "20%"
+                  marginTop: "100px"
                 }}
-                src={this.state.groups[0].images[0].href}
+                src={this.props.groups[0].images[0].href}
               />
             </div>
-            <div className="col-md-2" style={{textAlign: "right"}}>
+            <div
+              className="col-md-2"
+              style={{textAlign: "right", marginTop: "300px"}}
+            >
               <button id="fadeshow1">{">"}</button>
             </div>
           </div>

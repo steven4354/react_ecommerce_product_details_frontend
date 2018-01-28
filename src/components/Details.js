@@ -1,34 +1,12 @@
 import React, {Component} from "react";
 
 class Details extends Component {
-  constructor() {
+  constructor(props) {
     super();
-    this.state = {
-      groups: [],
-      fetched: false
-    };
-  }
-
-  componentDidMount() {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const url =
-      "https://www.westelm.com/services/catalog/v4/category/shop/new/all-new/index.json"; // site that doesn’t send Access-Control-*
-    fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
-      .then(response => response.json())
-      .then(contents => {
-        this.setState({
-          groups: contents.groups,
-          fetched: true
-        });
-        console.log(contents);
-      })
-      .catch(() =>
-        console.log("Can’t access " + url + " response. Blocked by browser?")
-      );
   }
 
   render() {
-    return !this.state.fetched ? (
+    return !this.props.fetched ? (
       <div> Loading </div>
     ) : (
       <div>
@@ -39,9 +17,9 @@ class Details extends Component {
             textAlign: "left"
           }}
         >
-          {this.state.groups[0].name}
+          {this.props.groups[0].name}
         </h1>
-        {this.state.groups[0].priceRange.type == "special" ? (
+        {this.props.groups[0].priceRange.type == "special" ? (
           <ul
             style={{
               textAlign: "left"
@@ -63,7 +41,7 @@ class Details extends Component {
         ) : (
           <div />
         )}
-        {this.state.groups[0].priceRange.regular ? (
+        {this.props.groups[0].priceRange.regular ? (
           <div
             style={{
               fontSize: "15px",
@@ -71,12 +49,12 @@ class Details extends Component {
               textAlign: "left"
             }}
           >
-            Suggested Price ${this.state.groups[0].priceRange.regular.high}
+            Suggested Price ${this.props.groups[0].priceRange.regular.high}
           </div>
         ) : (
           <div />
         )}
-        {this.state.groups[0].priceRange.regular ? (
+        {this.props.groups[0].priceRange.regular ? (
           <div
             style={{
               fontSize: "15px",
@@ -85,7 +63,7 @@ class Details extends Component {
               color: "red"
             }}
           >
-            Sale ${this.state.groups[0].priceRange.selling.high}
+            Sale ${this.props.groups[0].priceRange.selling.high}
           </div>
         ) : (
           <div
@@ -94,7 +72,7 @@ class Details extends Component {
               fontColor: "black"
             }}
           >
-            Price ${this.state.groups[0].priceRange.selling.high}
+            Price ${this.props.groups[0].priceRange.selling.high}
           </div>
         )}
       </div>
