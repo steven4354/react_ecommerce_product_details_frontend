@@ -1,6 +1,6 @@
 ## Demo
 
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![Alt Text](http://g.recordit.co/j0FmEA5APS.gif)
 ![Alt text](./demo_1.png?raw=true "Title")
 ![Alt text](./demo_2.png?raw=true "Title")
 ![Alt text](./demo_3.png?raw=true "Title")
