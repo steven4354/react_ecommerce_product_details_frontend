@@ -130,7 +130,12 @@ class App extends Component {
               />
             </div>
             <div className="col-md-4 col-md-offset-1">
-              <Details />
+              <Details
+                fetched={this.state.fetched}
+                groups={this.state.groups}
+                modalImageIndex={this.state.modalImageIndex}
+                modalImage={this.state.modalImage}
+              />
             </div>
           </div>
         </div>
