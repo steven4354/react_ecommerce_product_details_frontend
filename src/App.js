@@ -9,6 +9,7 @@ import Details from "./components/Details";
 import Modal from "react-modal";
 import ModalCarousel from "./components/ModalCarousel";
 
+//create a function that closes modal on shouldComponentUpdate, when window is small
 //for the modal
 const customStyles = {
   overlay: {
@@ -21,10 +22,10 @@ const customStyles = {
   },
   content: {
     position: "absolute",
-    top: "200px",
+    top: "20%",
     left: "300px",
     right: "300px",
-    bottom: "200px",
+    bottom: "20%",
     border: "1px solid #ccc",
     background: "#fff",
     overflow: "auto",
@@ -42,6 +43,7 @@ class App extends Component {
     this.state = {
       modalIsOpen: false,
       groups: [],
+      groupIndex: 0,
       fetched: false,
       modalImageIndex: 0,
       modalImage: ""
@@ -50,6 +52,8 @@ class App extends Component {
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.switchLeft = this.switchLeft.bind(this);
+    this.switchRight = this.switchRight.bind(this);
   }
 
   componentDidMount() {
@@ -67,7 +71,10 @@ class App extends Component {
         this.setState({
           groups: contents.groups,
           fetched: true,
-          modalImage: contents.groups[0].images[this.state.modalImageIndex].href
+          modalImage:
+            contents.groups[this.state.groupIndex].images[
+              this.state.modalImageIndex
+            ].href
         });
       })
       .catch(e => {
@@ -88,6 +95,33 @@ class App extends Component {
     this.setState({modalIsOpen: false});
   }
 
+  //changes the carousel picture in the modal
+  switchRight(e) {
+    if (
+      this.state.modalImageIndex <=
+      this.state.groups[this.state.groupIndex].images.length - 2
+    ) {
+      let idx = this.state.modalImageIndex + 1;
+      console.log("switchRight called idx => ", idx);
+
+      this.setState({
+        modalImageIndex: idx,
+        modalImage: this.state.groups[this.state.groupIndex].images[idx].href
+      });
+    }
+  }
+
+  switchLeft(e) {
+    if (this.state.modalImageIndex > 0) {
+      console.log("switchLeft called");
+      let idx = this.state.modalImageIndex - 1;
+      this.setState({
+        modalImageIndex: idx,
+        modalImage: this.state.groups[this.state.groupIndex].images[idx].href
+      });
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -97,8 +131,11 @@ class App extends Component {
           onRequestClose={this.closeModal}
           style={customStyles}
           contentLabel="Example Modal"
+          id="fadeshow1"
         >
           <ModalCarousel
+            switchRight={this.switchRight}
+            switchLeft={this.switchLeft}
             fetched={this.state.fetched}
             groups={this.state.groups}
             modalImageIndex={this.state.modalImageIndex}
@@ -114,7 +151,7 @@ class App extends Component {
         </p>
         <div className="container">
           <div className="row">
-            <div className="col-md-5 col-md-offset-1">
+            <div className="col-sm-5 col-sm-offset-1">
               <div
                 onClick={() => {
                   this.openModal();
@@ -129,7 +166,7 @@ class App extends Component {
                 modalImage={this.state.modalImage}
               />
             </div>
-            <div className="col-md-4 col-md-offset-1">
+            <div className="col-sm-4 col-sm-offset-1">
               <Details
                 fetched={this.state.fetched}
                 groups={this.state.groups}

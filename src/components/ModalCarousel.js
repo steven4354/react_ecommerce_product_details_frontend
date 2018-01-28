@@ -8,10 +8,6 @@ class ModalCarousel extends Component {
     super();
   }
 
-  switchRight() {}
-
-  switchLeft() {}
-
   render() {
     let settings = {
       infinite: false,
@@ -21,36 +17,35 @@ class ModalCarousel extends Component {
       centerMode: true
     };
 
-    if (this.props.fetched) {
-      console.log("modal image =>", this.props.groups[0].images.href);
-    }
-
     return (
-      <div style={{}}>
+      <div>
         {this.props.fetched ? (
           <div className="row">
             <div
               className="col-md-2"
-              style={{textAlign: "left", marginTop: "300px"}}
+              style={{textAlign: "left", marginTop: "25vh"}}
             >
-              <button id="fadeshow1">{"<"}</button>
+              <button id="fadeshow1" onClick={this.props.switchLeft}>
+                {"<"}
+              </button>
             </div>
             <div className="col-md-8">
               <img
                 style={{
                   display: "block",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  marginTop: "100px"
+                  margin: "auto",
+                  marginTop: "5vh"
                 }}
-                src={this.props.groups[0].images[0].href}
+                src={this.props.modalImage}
               />
             </div>
             <div
               className="col-md-2"
-              style={{textAlign: "right", marginTop: "300px"}}
+              style={{textAlign: "right", marginTop: "25vh"}}
             >
-              <button id="fadeshow1">{">"}</button>
+              <button id="fadeshow1" onClick={this.props.switchRight}>
+                {">"}
+              </button>
             </div>
           </div>
         ) : (
