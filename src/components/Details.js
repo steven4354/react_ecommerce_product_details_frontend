@@ -6,6 +6,14 @@ class Details extends Component {
   }
 
   render() {
+    //api call switch from price to priceRange
+    var priceName;
+    if (this.props.fetched && this.props.groups[this.props.groupIndex].price) {
+      priceName = "price";
+    } else {
+      priceName = "priceRange";
+    }
+
     return (
       <div>
         {!this.props.fetched ? (
@@ -19,9 +27,10 @@ class Details extends Component {
                 textAlign: "left"
               }}
             >
-              {this.props.groups[0].name}
+              {this.props.groups[this.props.groupIndex].name}
             </h1>
-            {this.props.groups[0].priceRange.type == "special" ? (
+            {this.props.groups[this.props.groupIndex][priceName].type ==
+            "special" ? (
               <ul
                 style={{
                   textAlign: "left"
@@ -43,7 +52,7 @@ class Details extends Component {
             ) : (
               <div />
             )}
-            {this.props.groups[0].priceRange.regular ? (
+            {this.props.groups[this.props.groupIndex][priceName].regular ? (
               <div
                 style={{
                   fontSize: "15px",
@@ -51,12 +60,15 @@ class Details extends Component {
                   textAlign: "left"
                 }}
               >
-                Suggested Price ${this.props.groups[0].priceRange.regular.high}
+                Suggested Price ${
+                  this.props.groups[this.props.groupIndex][priceName].regular
+                    .high
+                }
               </div>
             ) : (
               <div />
             )}
-            {this.props.groups[0].priceRange.regular ? (
+            {this.props.groups[this.props.groupIndex][priceName].regular ? (
               <div
                 style={{
                   fontSize: "15px",
@@ -65,7 +77,10 @@ class Details extends Component {
                   color: "red"
                 }}
               >
-                Sale ${this.props.groups[0].priceRange.selling.high}
+                Sale ${
+                  this.props.groups[this.props.groupIndex][priceName].selling
+                    .high
+                }
               </div>
             ) : (
               <div
@@ -74,7 +89,10 @@ class Details extends Component {
                   fontColor: "black"
                 }}
               >
-                Price ${this.props.groups[0].priceRange.selling.high}
+                Price ${
+                  this.props.groups[this.props.groupIndex][priceName].selling
+                    .high
+                }
               </div>
             )}
           </div>

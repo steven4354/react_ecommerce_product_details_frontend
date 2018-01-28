@@ -22,25 +22,26 @@ class ModalCarousel extends Component {
         {this.props.fetched ? (
           <div className="row">
             <div
-              className="col-md-2"
+              className="col-xs-2"
               style={{textAlign: "left", marginTop: "25vh"}}
             >
               <button id="fadeshow1" onClick={this.props.switchLeft}>
                 {"<"}
               </button>
             </div>
-            <div className="col-md-8">
+            <div className="col-xs-8">
               <img
                 style={{
                   display: "block",
                   margin: "auto",
-                  marginTop: "5vh"
+                  maxWidth: "100%",
+                  maxHeight: "100%"
                 }}
                 src={this.props.modalImage}
               />
             </div>
             <div
-              className="col-md-2"
+              className="col-xs-2"
               style={{textAlign: "right", marginTop: "25vh"}}
             >
               <button id="fadeshow1" onClick={this.props.switchRight}>

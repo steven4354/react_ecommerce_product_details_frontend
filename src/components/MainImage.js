@@ -9,7 +9,11 @@ class MainImage extends Component {
   render() {
     return (
       <div style={{marginTop: "30px"}}>
-        <img src="https://www.westelm.com/weimgs/rk/images/wcm/products/201802/0010/organic-washed-cotton-stripe-duvet-cover-shams-kyoto-blue-m.jpg" />
+        {this.props.fetched ? (
+          <img src={this.props.groups[this.props.groupIndex].hero.href} />
+        ) : (
+          <div>Loading</div>
+        )}
       </div>
     );
   }

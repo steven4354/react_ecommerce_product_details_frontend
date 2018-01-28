@@ -16,17 +16,15 @@ class Carousel extends Component {
       variableWidth: true
     };
 
-    console.log(this.props.groups);
-
     return (
       <div style={{marginTop: "10px"}}>
         <Slider {...settings}>
           {!this.props.fetched ? (
             <div>Loading</div>
           ) : (
-            this.props.groups[0].images.map(obj => {
+            this.props.groups[this.props.groupIndex].images.map(obj => {
               return (
-                <div width="100px" style={{textAlign: "center"}}>
+                <div key={obj.href} width="100px" style={{textAlign: "center"}}>
                   <img height="100px" width="100px" src={obj.href} />
                 </div>
               );
